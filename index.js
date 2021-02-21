@@ -45,6 +45,8 @@ app.use(function(ctx, next){
     });
 });
 
+/// 
+
 // 登录接口和注册接口不需要 token
 app.use(koaJwt({secret:SECRET}).unless({path:['/login']}))
 
