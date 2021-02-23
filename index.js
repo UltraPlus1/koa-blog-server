@@ -5,8 +5,7 @@ const Router = require('koa-router') // router
 const koaJwt = require('koa-jwt') // koa-jwt 用于校验token 等
 const config = require('./config/secret')
 const Jwtoken = require('jsonwebtoken') // 用于生成JWT Token
-const login = require('./login/login')
-const register =require('./login/register')
+const loginRouter = require('./login/index') // 登录相关的页面的路由
 const SECRET = config.SECRET
 const app = new Koa()
 const router = new Router()
@@ -28,8 +27,7 @@ app.use(function(ctx, next){
 //校验JWT  token 是否过期
 app.use(koaJwt({secret:SECRET}).unless({path:['/login','/register']}))
 
-router.use(login.routes(),login.allowedMethods())
-router.use(register.routes(),register.allowedMethods())
+router.use(loginRouter.routes(),loginRouter.allowedMethods())
 app.use(router.routes()).use(router.allowedMethods())
 app.listen(8080,()=>{console.log('API is running on http://localhost:8080/login')})
 
