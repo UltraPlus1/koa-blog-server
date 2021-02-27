@@ -7,3 +7,11 @@
 4. 客户端收到 Token 以后可以把它存储起来，比如放在 Cookie 里或者 Local Storage 里
 5. 客户端每次向服务端请求资源的时候需要带着服务端签发的 Token
 6. 服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据
+
+## 如何关闭redis
+在Linux上，如果开了redis的守护进程，kill -9和redis-cli shutdown 命令是无法杀掉 redis 进程的 ，杀掉就会重新启动一个新的进程
+
+最后在网上找到这个命令：
+```shell
+/etc/init.d/redis-server stop
+```

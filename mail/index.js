@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 /**
  * 
  * @param {String} receiver 邮件的接收方
- * @param {Number} ValidCode 注册的验证码 
+ * @param {String} ValidCode 注册的验证码
  */
 exports.sendMail =async function(receiver,ValidCode) {
 
@@ -31,9 +31,9 @@ exports.sendMail =async function(receiver,ValidCode) {
 
         // 打印邮件ID
         console.log("Message sent: %s", info.messageId);
-        return "发送成功"
+        return "success"
     } catch (e) {
         console.log(e)
-        return "发送失败"
+        return "fail"
     }
 }

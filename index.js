@@ -4,7 +4,6 @@ const body = require('koa-body') // json 解析和文件解析
 const Router = require('koa-router') // router
 const koaJwt = require('koa-jwt') // koa-jwt 用于校验token 等
 const config = require('./config/secret')
-const Jwtoken = require('jsonwebtoken') // 用于生成JWT Token
 const loginRouter = require('./login/index') // 登录相关的页面的路由
 const SECRET = config.SECRET
 const app = new Koa()
@@ -15,7 +14,7 @@ app.use(body())
 //401 用户没有权限，需要登录
 app.use(function(ctx, next){
     return next().catch((err) => {
-        if (401 == err.status) {
+        if (err.status == 401) {
             ctx.status = 401;
             ctx.body = 'Protected resource, use Authorization header to get access\n';
         } else {
@@ -25,7 +24,9 @@ app.use(function(ctx, next){
 });
 
 //校验JWT  token 是否过期
-app.use(koaJwt({secret:SECRET}).unless({path:['/login','/register']}))
+app.use(koaJwt({secret:SECRET}).unless({
+    path:['/login',"/register","/register/sendValidCode"]
+}))
 
 router.use(loginRouter.routes(),loginRouter.allowedMethods())
 app.use(router.routes()).use(router.allowedMethods())
