@@ -34,7 +34,7 @@ register.post('/register',async (ctx)=>{
     const email = ctx.request.body?.email;
     console.log(email)
     if(email){
-        const validCode = random(6,{letters:false})
+        const validCode = random(6,{letters:false})// 六位随机数字验证码
         const result =await Mail.sendMail(email,validCode)// 发送邮件并获得发送结果
         if(result === 'success'){
             redisClient.set(email,validCode)
