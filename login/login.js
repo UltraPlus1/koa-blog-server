@@ -26,8 +26,7 @@ const validUser = (username,password)=>{
 // 登录接口
 login.post('/login',async (ctx)=>{
 
-    console.log(ctx.request.body)
-    
+    // 获取账号和密码
     const username = ctx.request.body?.username;
     const password = ctx.request.body?.password;
 
@@ -40,8 +39,8 @@ login.post('/login',async (ctx)=>{
         const token = Jwtoken.sign(Payload,SECRET,Options)
         // 尝试 token
         console.log(token)
-        // 将jwt Token 塞进 Authorization 里面
-        ctx.response.set('Authorization','Bearer '+ token)
+        // 将jwt Token 塞进 authorization 里面
+        ctx.response.set('authorization','Bearer '+ token)
         ctx.body={
             message:"登录成功",
             status:200
@@ -49,7 +48,7 @@ login.post('/login',async (ctx)=>{
     }else{
         // ctx.throw(401)
         ctx.body={
-            message:"登录失败",
+            message:"认证失败，密码或用户名错误",
             status:401
         }
     }
