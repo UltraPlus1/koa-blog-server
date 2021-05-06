@@ -37,18 +37,18 @@ marked.setOptions({
 article.post('/article/create',async (ctx)=>{
     const currentTime = new Date()
     const title = ctx.request.body?.title;
-    let content = ctx.request.body?.content;
+    let rawContent = ctx.request.body?.rawContent;
     const label = ctx.request.body?.label;
     const summary =ctx.request.body?.summary;
-    if(title&&content){
+    if(title&&rawContent){
         let newArticle =new Article({
             title: title,
             author: 'Mason',
             createTime: currentTime,
             updateTime: null,
             label: label,
-            content: marked(content),
-            rawContent:content,
+            content: marked(rawContent),
+            rawContent:rawContent,
             summary:summary,
         })
         let isError = false
