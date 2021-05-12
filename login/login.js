@@ -37,10 +37,8 @@ login.post('/login',async (ctx)=>{
         }
         // 生成 Jwt
         const token = Jwtoken.sign(Payload,SECRET,Options)
-        // 尝试 token
-        console.log(token)
         // 将jwt Token 塞进 authorization 里面
-        ctx.response.set('authorization','Bearer '+ token)
+        ctx.response.set('Authorization','Bearer '+ token)
         ctx.body={
             message:"登录成功",
             status:200
